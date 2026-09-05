@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Join UFA Kenya{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="auth-card">
+                <div class="card-header-custom">
+                    <h3><i class="fas fa-user-plus"></i> Join UFA Kenya</h3>
+                    <p>Create your account to get started</p>
+                </div>
+                <div class="card-body-custom">
+                    {% if form.errors %}
+                        <div class="alert alert-danger" style="border-radius: var(--radius-sm);">
+                            <i class="fas fa-exclamation-circle"></i> Please correct the errors below.
+                            <ul class="mb-0 mt-2">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ field.label }}: {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_first_name" class="form-label-custom">
+                                    <i class="fas fa-user"></i> First Name <span class="text-danger">*</span>
+                                </label>
+                                {{ form.first_name|add_class:"form-control form-control-custom" }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_last_name" class="form-label-custom">
+                                    <i class="fas fa-user"></i> Last Name <span class="text-danger">*</span>
+                                </label>
+                                {{ form.last_name|add_class:"form-control form-control-custom" }}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label-custom">
+                                <i class="fas fa-user-tag"></i> Username <span class="text-danger">*</span>
+                            </label>
+                            {{ form.username|add_class:"form-control form-control-custom" }}
+                            <small class="text-muted">Choose a unique username</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label-custom">
+                                <i class="fas fa-envelope"></i> Email Address <span class="text-danger">*</span>
+                            </label>
+                            {{ form.email|add_class:"form-control form-control-custom" }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_phone_number" class="form-label-custom">
+                                <i class="fas fa-phone"></i> Phone Number <span class="text-danger">*</span>
+                            </label>
+                            {{ form.phone_number|add_class:"form-control form-control-custom" }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_county" class="form-label-custom">
+                                <i class="fas fa-map-marker-alt"></i> County <span class="text-danger">*</span>
+                            </label>
+                            {{ form.county|add_class:"form-control form-control-custom" }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_password1" class="form-label-custom">
+                                <i class="fas fa-lock"></i> Password <span class="text-danger">*</span>
+                            </label>
+                            {{ form.password1|add_class:"form-control form-control-custom" }}
+                            <small class="text-muted">Password must be at least 8 characters</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_password2" class="form-label-custom">
+                                <i class="fas fa-check-circle"></i> Confirm Password <span class="text-danger">*</span>
+                            </label>
+                            {{ form.password2|add_class:"form-control form-control-custom" }}
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="terms" required>
+                            <label class="form-check-label" for="terms">
+                                I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and <a href="#" class="text-decoration-none">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-accent-custom w-100">
+                            <i class="fas fa-user-plus"></i> Create Account
+                        </button>
+                    </form>
+                    
+                    <div class="text-center mt-4">
+                        <p class="text-muted">Already have an account?</p>
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary w-100" style="border-radius: var(--radius-full); padding: 12px;">
+                            <i class="fas fa-sign-in-alt"></i> Log In
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Manage Gallery - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-0">Manage Gallery</h1>
+            <p class="text-muted">Manage albums, photos, and videos</p>
+        </div>
+        <div>
+            <a href="{% url 'admin_dashboard:dashboard' %}" class="btn btn-outline-secondary me-2">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+            <a href="{% url 'admin_dashboard:album_add' %}" class="btn btn-primary-custom me-1">
+                <i class="fas fa-images"></i> Add Album
+            </a>
+            <a href="{% url 'admin_dashboard:photo_add' %}" class="btn btn-success">
+                <i class="fas fa-image"></i> Add Photo
+            </a>
+        </div>
+    </div>
+
+    <!-- Albums -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light">
+            <h5 class="mb-0"><i class="fas fa-images text-accent me-2"></i>Albums</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Photos</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for album in albums %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ album.title }}</td>
+                            <td>{{ album.photos.count }}</td>
+                            <td>
+                                <span class="badge {% if album.is_published %}bg-success{% else %}bg-secondary{% endif %}">
+                                    {% if album.is_published %}Published{% else %}Draft{% endif %}
+                                </span>
+                            </td>
+                            <td>{{ album.created_at|date:"M d, Y" }}</td>
+                            <td>
+                                <a href="{% url 'admin_dashboard:album_edit' album.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="{% url 'admin_dashboard:album_delete' album.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this album?')">Delete</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted">No albums created yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Photos -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light">
+            <h5 class="mb-0"><i class="fas fa-image text-accent me-2"></i>Recent Photos</h5>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                {% for photo in photos %}
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="card shadow-sm">
+                        <div class="card-img-top" style="height: 120px; background: var(--medium-gray); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--logo-blue);">
+                            {% if photo.image %}
+                                <img src="{{ photo.image.url }}" alt="{{ photo.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                            {% else %}
+                                <i class="fas fa-image"></i>
+                            {% endif %}
+                        </div>
+                        <div class="card-body p-2">
+                            <small class="text-muted d-block text-truncate">{{ photo.title|truncatechars:20 }}</small>
+                            <small class="text-muted d-block">{{ photo.album.title|truncatechars:15 }}</small>
+                            <div class="mt-1">
+                                <a href="{% url 'admin_dashboard:photo_delete' photo.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Delete this photo?')">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p class="text-muted">No photos uploaded yet.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

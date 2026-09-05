@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-0">{{ title }}</h1>
+            <p class="text-muted">Fill in the details below</p>
+        </div>
+        <a href="{% url 'admin_dashboard:leadership' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i> Please correct the errors below.
+                </div>
+                {% endif %}
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="id_name" class="form-label fw-bold">Name <span class="text-danger">*</span></label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                        <div class="text-danger small">{{ form.name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="id_position" class="form-label fw-bold">Position <span class="text-danger">*</span></label>
+                        {{ form.position }}
+                        {% if form.position.errors %}
+                        <div class="text-danger small">{{ form.position.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="id_office" class="form-label fw-bold">Office <span class="text-danger">*</span></label>
+                        {{ form.office }}
+                        {% if form.office.errors %}
+                        <div class="text-danger small">{{ form.office.errors }}</div>
+                        {% endif %}
+                        <small class="text-muted">Select the office this leader belongs to</small>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="id_leader_type" class="form-label fw-bold">Leader Type <span class="text-danger">*</span></label>
+                        {{ form.leader_type }}
+                        {% if form.leader_type.errors %}
+                        <div class="text-danger small">{{ form.leader_type.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="id_county" class="form-label fw-bold">County</label>
+                        {{ form.county }}
+                        {% if form.county.errors %}
+                        <div class="text-danger small">{{ form.county.errors }}</div>
+                        {% endif %}
+                        <small class="text-muted">Required for County Leaders</small>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="id_photo" class="form-label fw-bold">Photo</label>
+                        {{ form.photo }}
+                        {% if form.photo.errors %}
+                        <div class="text-danger small">{{ form.photo.errors }}</div>
+                        {% endif %}
+                        {% if form.instance.photo %}
+                        <div class="mt-2">
+                            <img src="{{ form.instance.photo.url }}" alt="Current photo" style="max-height: 100px;">
+                            <small class="text-muted">Current photo</small>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-12 mb-3">
+                        <label for="id_bio" class="form-label fw-bold">Bio <span class="text-danger">*</span></label>
+                        {{ form.bio }}
+                        {% if form.bio.errors %}
+                        <div class="text-danger small">{{ form.bio.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="id_email" class="form-label fw-bold">Email</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                        <div class="text-danger small">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="id_phone" class="form-label fw-bold">Phone</label>
+                        {{ form.phone }}
+                        {% if form.phone.errors %}
+                        <div class="text-danger small">{{ form.phone.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="id_twitter" class="form-label fw-bold">Twitter URL</label>
+                        {{ form.twitter }}
+                        {% if form.twitter.errors %}
+                        <div class="text-danger small">{{ form.twitter.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="id_linkedin" class="form-label fw-bold">LinkedIn URL</label>
+                        {{ form.linkedin }}
+                        {% if form.linkedin.errors %}
+                        <div class="text-danger small">{{ form.linkedin.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="id_facebook" class="form-label fw-bold">Facebook URL</label>
+                        {{ form.facebook }}
+                        {% if form.facebook.errors %}
+                        <div class="text-danger small">{{ form.facebook.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="id_instagram" class="form-label fw-bold">Instagram URL</label>
+                        {{ form.instagram }}
+                        {% if form.instagram.errors %}
+                        <div class="text-danger small">{{ form.instagram.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <label for="id_order" class="form-label fw-bold">Display Order</label>
+                        {{ form.order }}
+                        {% if form.order.errors %}
+                        <div class="text-danger small">{{ form.order.errors }}</div>
+                        {% endif %}
+                        <small class="text-muted">Lower numbers appear first</small>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <div class="form-check mt-4">
+                            {{ form.is_active }}
+                            <label class="form-check-label fw-bold" for="id_is_active">Active</label>
+                            {% if form.is_active.errors %}
+                            <div class="text-danger small">{{ form.is_active.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <div class="form-check mt-4">
+                            {{ form.is_featured }}
+                            <label class="form-check-label fw-bold" for="id_is_featured">Featured</label>
+                            {% if form.is_featured.errors %}
+                            <div class="text-danger small">{{ form.is_featured.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-end gap-2 mt-3">
+                    <a href="{% url 'admin_dashboard:leadership' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary-custom">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

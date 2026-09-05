@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Reports Dashboard - UFA{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-0">Reports Dashboard</h1>
+            <p class="text-muted">Generate and manage organization reports</p>
+        </div>
+    </div>
+
+    <!-- Report Templates -->
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <div class="text-center">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <h5 class="mb-2">Membership Report</h5>
+                    <p class="text-muted small">Membership statistics, growth, and distribution</p>
+                    <button class="btn btn-primary-custom btn-sm btn-generate-report" data-template-id="1">
+                        <i class="fas fa-file-pdf"></i> Generate Report
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <div class="text-center">
+                    <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h5 class="mb-2">Event Report</h5>
+                    <p class="text-muted small">Event participation, attendance, and analytics</p>
+                    <button class="btn btn-primary-custom btn-sm btn-generate-report" data-template-id="2">
+                        <i class="fas fa-file-pdf"></i> Generate Report
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <div class="text-center">
+                    <div class="card-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h5 class="mb-2">Program Report</h5>
+                    <p class="text-muted small">Project status, impact, and outcomes</p>
+                    <button class="btn btn-primary-custom btn-sm btn-generate-report" data-template-id="3">
+                        <i class="fas fa-file-pdf"></i> Generate Report
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <div class="text-center">
+                    <div class="card-icon"><i class="fas fa-money-bill-wave"></i></div>
+                    <h5 class="mb-2">Financial Report</h5>
+                    <p class="text-muted small">Budget, funding, and financial summary</p>
+                    <button class="btn btn-primary-custom btn-sm btn-generate-report" data-template-id="4">
+                        <i class="fas fa-file-pdf"></i> Generate Report
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <div class="text-center">
+                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                    <h5 class="mb-2">Impact Report</h5>
+                    <p class="text-muted small">Organization impact, reach, and outcomes</p>
+                    <button class="btn btn-primary-custom btn-sm btn-generate-report" data-template-id="5">
+                        <i class="fas fa-file-pdf"></i> Generate Report
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <div class="text-center">
+                    <div class="card-icon"><i class="fas fa-file-alt"></i></div>
+                    <h5 class="mb-2">Activity Report</h5>
+                    <p class="text-muted small">Activity log, actions, and recent updates</p>
+                    <button class="btn btn-primary-custom btn-sm btn-generate-report" data-template-id="6">
+                        <i class="fas fa-file-pdf"></i> Generate Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

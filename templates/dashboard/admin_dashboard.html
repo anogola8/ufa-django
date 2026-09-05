@@ -1,0 +1,299 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard - UFA Kenya{% endblock %}
+
+{% block extra_css %}
+<style>
+    .admin-stat-card {
+        background: var(--white);
+        border-radius: var(--radius-md);
+        padding: 20px;
+        box-shadow: var(--shadow-sm);
+        transition: all var(--transition-normal);
+        border-left: 4px solid var(--logo-blue);
+        height: 100%;
+    }
+    .admin-stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+    }
+    .admin-stat-card .stat-number {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--primary-dark);
+    }
+    .admin-stat-card .stat-label {
+        color: var(--dark-gray);
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+    .admin-stat-card .stat-icon {
+        font-size: 2rem;
+        opacity: 0.2;
+    }
+    .admin-stat-card.green { border-left-color: var(--logo-green); }
+    .admin-stat-card.gold { border-left-color: var(--logo-gold); }
+    .admin-stat-card.red { border-left-color: var(--logo-red); }
+    .admin-stat-card.purple { border-left-color: #7c3aed; }
+    .admin-stat-card.orange { border-left-color: #f97316; }
+    .admin-stat-card.teal { border-left-color: #14b8a6; }
+    .admin-stat-card.pink { border-left-color: #ec4899; }
+    
+    .admin-card {
+        background: var(--white);
+        border-radius: var(--radius-md);
+        padding: 20px;
+        box-shadow: var(--shadow-sm);
+        transition: all var(--transition-normal);
+        height: 100%;
+    }
+    .admin-card:hover {
+        box-shadow: var(--shadow-md);
+    }
+    .admin-card .card-icon {
+        font-size: 2.5rem;
+        color: var(--logo-blue);
+        margin-bottom: 15px;
+    }
+    .admin-card .card-title {
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    .admin-card .card-count {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--primary-dark);
+    }
+    .admin-card .card-link {
+        color: var(--logo-blue);
+        text-decoration: none;
+        font-weight: 500;
+    }
+    .admin-card .card-link:hover {
+        color: var(--logo-gold);
+    }
+    
+    .quick-action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border-radius: var(--radius-sm);
+        background: var(--light-gray);
+        color: var(--primary-dark);
+        text-decoration: none;
+        transition: all var(--transition-fast);
+        border: none;
+        font-weight: 500;
+    }
+    .quick-action-btn:hover {
+        background: var(--logo-blue);
+        color: var(--white);
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-0">Admin Dashboard</h1>
+            <p class="text-muted">Complete control over your UFA Kenya platform</p>
+        </div>
+        <div>
+            <span class="badge bg-success">{{ today|date:"F d, Y" }}</span>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+            <div class="admin-stat-card">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="stat-number">{{ total_members }}</div>
+                        <div class="stat-label">Total Members</div>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                </div>
+                <small class="text-success">{{ active_members }} active</small>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+            <div class="admin-stat-card green">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="stat-number">{{ total_events }}</div>
+                        <div class="stat-label">Total Events</div>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                </div>
+                <small class="text-success">{{ upcoming_events }} upcoming</small>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+            <div class="admin-stat-card gold">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="stat-number">{{ total_news }}</div>
+                        <div class="stat-label">News Articles</div>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-newspaper"></i></div>
+                </div>
+                <small class="text-success">{{ published_news }} published</small>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+            <div class="admin-stat-card purple">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="stat-number">{{ total_projects }}</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-project-diagram"></i></div>
+                </div>
+                <small class="text-success">{{ active_projects }} active</small>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+            <div class="admin-stat-card red">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="stat-number">{{ total_albums }}</div>
+                        <div class="stat-label">Albums</div>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-images"></i></div>
+                </div>
+                <small class="text-muted">{{ total_photos }} photos</small>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+            <div class="admin-stat-card pink">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="stat-number">{{ total_appointments|default:0 }}</div>
+                        <div class="stat-label">Appointments</div>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-file-signature"></i></div>
+                </div>
+                <small class="text-success">Appointment letters</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <h5><i class="fas fa-bolt text-accent me-2"></i>Quick Actions</h5>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{% url 'admin_dashboard:members' %}" class="quick-action-btn">
+                    <i class="fas fa-user-plus"></i> Manage Members
+                </a>
+                <a href="{% url 'admin_dashboard:events' %}" class="quick-action-btn">
+                    <i class="fas fa-calendar-plus"></i> Manage Events
+                </a>
+                <a href="{% url 'admin_dashboard:news' %}" class="quick-action-btn">
+                    <i class="fas fa-plus-circle"></i> Add News
+                </a>
+                <a href="{% url 'admin_dashboard:projects' %}" class="quick-action-btn">
+                    <i class="fas fa-plus-circle"></i> Add Project
+                </a>
+                <a href="{% url 'admin_dashboard:gallery' %}" class="quick-action-btn">
+                    <i class="fas fa-plus-circle"></i> Add to Gallery
+                </a>
+                <a href="{% url 'programs:admin_list' %}" class="quick-action-btn">
+                    <i class="fas fa-graduation-cap"></i> Manage Programs
+                </a>
+                <a href="{% url 'admin_dashboard:leadership' %}" class="quick-action-btn">
+                    <i class="fas fa-user-tie"></i> Manage Leadership
+                </a>
+                <a href="{% url 'appointments:list' %}" class="quick-action-btn">
+                    <i class="fas fa-file-signature"></i> Appointments
+                </a>
+                <a href="/admin/" class="quick-action-btn" style="background: var(--logo-blue); color: white;">
+                    <i class="fas fa-cog"></i> Full Admin Panel
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Management Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-3 col-md-6">
+            <div class="admin-card text-center">
+                <div class="card-icon"><i class="fas fa-users"></i></div>
+                <div class="card-title">Members</div>
+                <div class="card-count">{{ total_members }}</div>
+                <p class="text-muted small">{{ pending_members }} pending approval</p>
+                <a href="{% url 'admin_dashboard:members' %}" class="card-link">View All →</a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="admin-card text-center">
+                <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+                <div class="card-title">Events</div>
+                <div class="card-count">{{ total_events }}</div>
+                <p class="text-muted small">{{ upcoming_events }} upcoming</p>
+                <a href="{% url 'admin_dashboard:events' %}" class="card-link">View All →</a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="admin-card text-center">
+                <div class="card-icon"><i class="fas fa-newspaper"></i></div>
+                <div class="card-title">News</div>
+                <div class="card-count">{{ total_news }}</div>
+                <p class="text-muted small">{{ published_news }} published</p>
+                <a href="{% url 'admin_dashboard:news' %}" class="card-link">View All →</a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="admin-card text-center">
+                <div class="card-icon"><i class="fas fa-project-diagram"></i></div>
+                <div class="card-title">Projects</div>
+                <div class="card-count">{{ total_projects }}</div>
+                <p class="text-muted small">{{ active_projects }} active</p>
+                <a href="{% url 'admin_dashboard:projects' %}" class="card-link">View All →</a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="admin-card text-center">
+                <div class="card-icon"><i class="fas fa-images"></i></div>
+                <div class="card-title">Gallery</div>
+                <div class="card-count">{{ total_albums }}</div>
+                <p class="text-muted small">{{ total_photos }} photos</p>
+                <a href="{% url 'admin_dashboard:gallery' %}" class="card-link">View All →</a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="admin-card text-center">
+                <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="card-title">Programs</div>
+                <div class="card-count">{{ total_programs|default:"0" }}</div>
+                <p class="text-muted small">Active programs</p>
+                <a href="{% url 'programs:admin_list' %}" class="card-link">View All →</a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="admin-card text-center">
+                <div class="card-icon"><i class="fas fa-user-tie"></i></div>
+                <div class="card-title">Leadership</div>
+                <div class="card-count">{{ total_leaders }}</div>
+                <p class="text-muted small">{{ active_leaders }} active</p>
+                <a href="{% url 'admin_dashboard:leadership' %}" class="card-link">View All →</a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="admin-card text-center">
+                <div class="card-icon"><i class="fas fa-file-signature"></i></div>
+                <div class="card-title">Appointments</div>
+                <div class="card-count">{{ total_appointments|default:"0" }}</div>
+                <p class="text-muted small">Appointment letters</p>
+                <a href="{% url 'appointments:list' %}" class="card-link">View All →</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

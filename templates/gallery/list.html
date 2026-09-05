@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gallery - UFA Kenya{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Our <span>Gallery</span></h2>
+            <p class="text-muted">Capturing moments of impact and transformation</p>
+        </div>
+
+        <!-- Albums -->
+        <h4 class="mb-4">Photo Albums</h4>
+        <div class="row g-4 mb-5">
+            {% for album in albums %}
+            <div class="col-md-4 col-lg-3">
+                <div class="card card-custom">
+                    <div class="card-img-top" style="height: 200px; background: var(--medium-gray); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--logo-blue);">
+                        {% if album.cover_image %}
+                            <img src="{{ album.cover_image.url }}" alt="{{ album.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        {% else %}
+                            <i class="fas fa-images"></i>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ album.title }}</h5>
+                        <p class="card-text small">{{ album.description|truncatechars:60 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i class="fas fa-images"></i> {{ album.photos.count }} photos
+                            </small>
+                            {% if album.slug %}
+                            <a href="{% url 'gallery:album' album.slug %}" class="btn btn-primary-custom btn-sm">View</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <div style="font-size: 4rem; color: var(--logo-blue); opacity: 0.3;">
+                    <i class="fas fa-images"></i>
+                </div>
+                <h4 class="mt-3">No Albums</h4>
+                <p class="text-muted">Check back soon for photos.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Recent Photos -->
+        <h4 class="mb-4">Recent Photos</h4>
+        <div class="row g-3 mb-5">
+            {% for photo in recent_photos %}
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="card shadow-sm">
+                    <div class="card-img-top" style="height: 150px; background: var(--medium-gray); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--logo-blue);">
+                        {% if photo.image %}
+                            <img src="{{ photo.image.url }}" alt="{{ photo.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        {% else %}
+                            <i class="fas fa-image"></i>
+                        {% endif %}
+                    </div>
+                    <div class="card-body p-2">
+                        <small class="text-muted d-block text-truncate">{{ photo.title }}</small>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No photos available yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Videos -->
+        <h4 class="mb-4">Videos</h4>
+        <div class="row g-4">
+            {% for video in recent_videos %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card card-custom">
+                    <div class="card-img-top" style="height: 200px; background: var(--medium-gray); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--logo-blue); position: relative;">
+                        {% if video.thumbnail %}
+                            <img src="{{ video.thumbnail.url }}" alt="{{ video.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        {% else %}
+                            <i class="fas fa-video"></i>
+                        {% endif %}
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: white; opacity: 0.8;">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ video.title }}</h5>
+                        <p class="card-text small">{{ video.description|truncatechars:60 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i class="fas fa-clock"></i> {{ video.created_at|date:"M d, Y" }}
+                            </small>
+                            {% if video.youtube_url %}
+                                <a href="{{ video.youtube_url }}" target="_blank" class="btn btn-primary-custom btn-sm">
+                                    <i class="fab fa-youtube"></i> Watch
+                                </a>
+                            {% elif video.video_file %}
+                                <a href="{{ video.video_file.url }}" class="btn btn-primary-custom btn-sm">
+                                    <i class="fas fa-play"></i> Watch
+                                </a>
+                            {% else %}
+                                <span class="text-muted small">No video available</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No videos available yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

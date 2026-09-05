@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Appointments - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-0">Appointments</h1>
+            <p class="text-muted">Manage appointment letters</p>
+        </div>
+        <div>
+            <a href="{% url 'admin_dashboard:dashboard' %}" class="btn btn-outline-secondary me-2">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+            <a href="{% url 'appointments:create' %}" class="btn btn-primary-custom">
+                <i class="fas fa-plus"></i> New Appointment
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Member</th>
+                            <th>Position</th>
+                            <th>County</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ appointment.member.full_name }}</td>
+                            <td>{{ appointment.get_position_display }}</td>
+                            <td>{{ appointment.county|default:"-" }}</td>
+                            <td>
+                                <span class="badge {% if appointment.status == 'approved' %}bg-success{% elif appointment.status == 'pending' %}bg-warning{% else %}bg-secondary{% endif %}">
+                                    {{ appointment.get_status_display }}
+                                </span>
+                            </td>
+                            <td>{{ appointment.appointment_date|date:"M d, Y" }}</td>
+                            <td>
+                                <a href="{% url 'appointments:detail' appointment.id %}" class="btn btn-sm btn-primary">View</a>
+                                <a href="{% url 'appointments:pdf' appointment.id %}" class="btn btn-sm btn-success">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </a>
+                                <a href="{% url 'appointments:delete' appointment.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Delete this appointment?')">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">No appointments created yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

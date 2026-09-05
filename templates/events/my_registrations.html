@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Registrations - UFA Kenya{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="section-title">My <span>Registrations</span></h2>
+                <p class="text-muted">View all your event registrations</p>
+            </div>
+            <a href="{% url 'events:list' %}" class="btn btn-primary-custom">
+                <i class="fas fa-calendar-plus"></i> Browse Events
+            </a>
+        </div>
+
+        <div class="row g-4">
+            {% for registration in registrations %}
+            <div class="col-md-6">
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h5 class="card-title">{{ registration.event.title }}</h5>
+                            <span class="badge {% if registration.status == 'confirmed' %}bg-success{% elif registration.status == 'pending' %}bg-warning{% elif registration.status == 'cancelled' %}bg-danger{% else %}bg-secondary{% endif %}">
+                                {{ registration.get_status_display }}
+                            </span>
+                        </div>
+                        <p class="text-muted small">
+                            <i class="fas fa-calendar"></i> {{ registration.event.start_date|date:"M d, Y" }}
+                            <i class="fas fa-map-marker-alt ms-2"></i> {{ registration.event.venue }}
+                        </p>
+                        <p class="small">{{ registration.event.description|truncatechars:100 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                Registered: {{ registration.registration_date|date:"M d, Y" }}
+                            </small>
+                            {% if registration.status != 'cancelled' and registration.event.start_date > now %}
+                            <a href="{% url 'events:cancel' registration.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this registration?')">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <div class="py-5">
+                    <div style="font-size: 4rem; color: var(--logo-blue); opacity: 0.3;">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <h4 class="mt-3">No Registrations</h4>
+                    <p class="text-muted">You haven't registered for any events yet.</p>
+                    <a href="{% url 'events:list' %}" class="btn btn-primary-custom">
+                        <i class="fas fa-calendar-plus"></i> Browse Events
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

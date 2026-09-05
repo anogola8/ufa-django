@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Member Dashboard - UFA Kenya{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Welcome Section -->
+    <div class="member-welcome d-flex justify-content-between align-items-center">
+        <div>
+            <h1>Welcome back, {{ member.full_name }}!</h1>
+            <p>Member #{{ member.membership_number }} • {{ member.membership_type|title }} Member</p>
+        </div>
+        <div>
+            <span class="badge">
+                <i class="fas fa-check-circle"></i> 
+                {% if member.membership_status == 'active' %}Active Member{% else %}{{ member.membership_status|title }}{% endif %}
+            </span>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="dashboard-card text-center">
+                <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
+                <div class="card-number">{{ upcoming_events|length }}</div>
+                <div class="card-label">Upcoming Events</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="dashboard-card text-center">
+                <div class="card-icon"><i class="fas fa-history"></i></div>
+                <div class="card-number">{{ total_events_attended }}</div>
+                <div class="card-label">Events Attended</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="dashboard-card text-center">
+                <div class="card-icon"><i class="fas fa-clock"></i></div>
+                <div class="card-number">{{ pending_registrations }}</div>
+                <div class="card-label">Pending Registrations</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="dashboard-card text-center">
+                <div class="card-icon"><i class="fas fa-file-signature"></i></div>
+                <div class="card-number">{{ total_appointments|default:0 }}</div>
+                <div class="card-label">Appointments</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Upcoming Events -->
+        <div class="col-lg-7">
+            <div class="dashboard-card">
+                <h5 class="mb-3"><i class="fas fa-calendar-alt text-accent me-2"></i>Upcoming Events</h5>
+                {% for registration in upcoming_events %}
+                <div class="event-item">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="event-title">{{ registration.event.title }}</div>
+                            <div class="event-meta">
+                                <i class="fas fa-calendar"></i> {{ registration.event.start_date|date:"M d, Y" }} • 
+                                <i class="fas fa-clock"></i> {{ registration.event.start_date|time:"g:i A" }} • 
+                                <i class="fas fa-map-marker-alt"></i> {{ registration.event.venue }}
+                            </div>
+                        </div>
+                        <span class="event-status {{ registration.status }}">
+                            {{ registration.status|title }}
+                        </span>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-muted text-center py-3">No upcoming events</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="col-lg-5">
+            <div class="dashboard-card">
+                <h5 class="mb-3"><i class="fas fa-bolt text-accent me-2"></i>Quick Actions</h5>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'appointments:my_appointments' %}" class="btn btn-primary-custom">
+                        <i class="fas fa-file-signature"></i> My Appointments
+                    </a>
+                    <a href="{% url 'events:list' %}" class="btn btn-accent-custom">
+                        <i class="fas fa-calendar-plus"></i> Browse Events
+                    </a>
+                    <a href="{% url 'accounts:profile' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-user-edit"></i> Update Profile
+                    </a>
+                </div>
+            </div>
+            
+            <div class="dashboard-card mt-3">
+                <h5 class="mb-3"><i class="fas fa-info-circle text-accent me-2"></i>Membership Info</h5>
+                <div class="row">
+                    <div class="col-6">
+                        <p><strong>Member #</strong></p>
+                        <p>{{ member.membership_number }}</p>
+                    </div>
+                    <div class="col-6">
+                        <p><strong>Status</strong></p>
+                        <p>
+                            <span class="badge {% if member.membership_status == 'active' %}bg-success{% else %}bg-warning{% endif %}">
+                                {{ member.get_membership_status_display }}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p><strong>Type</strong></p>
+                        <p>{{ member.get_membership_type_display }}</p>
+                    </div>
+                    <div class="col-6">
+                        <p><strong>Joined</strong></p>
+                        <p>{{ member.joined_date|date:"M d, Y" }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

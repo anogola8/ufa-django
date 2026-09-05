@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Programs - UFA Kenya{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Our <span>Programs</span></h2>
+            <p class="text-muted">Empowering youth through transformative programs</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-custom">
+                    <div class="card-body text-center">
+                        <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h5 class="card-title">Civic Education</h5>
+                        <p class="card-text">Empowering youth with knowledge about their rights, responsibilities, and the democratic process in Kenya.</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Workshops & Seminars</li>
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Civic Awareness Campaigns</li>
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Voter Education</li>
+                        </ul>
+                        <a href="{% url 'events:list' %}" class="btn btn-primary-custom btn-sm">View Events</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-custom">
+                    <div class="card-body text-center">
+                        <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                        <h5 class="card-title">Youth Leadership</h5>
+                        <p class="card-text">Developing the next generation of leaders through mentorship, training, and practical experience.</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Leadership Training</li>
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Mentorship Programs</li>
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Youth Exchange Programs</li>
+                        </ul>
+                        <a href="{% url 'events:list' %}" class="btn btn-primary-custom btn-sm">View Events</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-custom">
+                    <div class="card-body text-center">
+                        <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
+                        <h5 class="card-title">Advocacy</h5>
+                        <p class="card-text">Amplifying youth voices on critical issues affecting communities across all 47 counties.</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Policy Engagement</li>
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Community Dialogues</li>
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Youth Representation</li>
+                        </ul>
+                        <a href="{% url 'events:list' %}" class="btn btn-primary-custom btn-sm">View Events</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-custom">
+                    <div class="card-body text-center">
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                        <h5 class="card-title">Community Engagement</h5>
+                        <p class="card-text">Building strong communities through volunteerism and collective action.</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Community Projects</li>
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Volunteer Programs</li>
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Social Impact Initiatives</li>
+                        </ul>
+                        <a href="{% url 'events:list' %}" class="btn btn-primary-custom btn-sm">View Events</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-custom">
+                    <div class="card-body text-center">
+                        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                        <h5 class="card-title">Entrepreneurship</h5>
+                        <p class="card-text">Empowering youth with skills and resources to start and grow their own businesses.</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Business Training</li>
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Mentorship & Networking</li>
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Access to Funding</li>
+                        </ul>
+                        <a href="{% url 'events:list' %}" class="btn btn-primary-custom btn-sm">View Events</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-custom">
+                    <div class="card-body text-center">
+                        <div class="card-icon"><i class="fas fa-globe-africa"></i></div>
+                        <h5 class="card-title">Digital Literacy</h5>
+                        <p class="card-text">Bridging the digital divide and preparing youth for the digital economy.</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Digital Skills Training</li>
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Tech Workshops</li>
+                            <li><i class="fas fa-check-circle text-accent me-2"></i> Online Safety</li>
+                        </ul>
+                        <a href="{% url 'events:list' %}" class="btn btn-primary-custom btn-sm">View Events</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

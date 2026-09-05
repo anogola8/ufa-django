@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}UFA Kenya - Unique Focus Association{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="hero-badge animate-fade-in-up">
+                        <i class="fas fa-rocket"></i> Empowering Kenyan Youth
+                    </div>
+                    <h1 class="animate-fade-in-up delay-1">
+                        Empowering <span>Youth</span> for a <br>Better <span>Kenya</span>
+                    </h1>
+                    <p class="lead animate-fade-in-up delay-2">
+                        Unique Focus Association is a youth-led organization dedicated to civic education, 
+                        leadership development, and advocacy across Kenya.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 animate-fade-in-up delay-3">
+                        <a href="{% url 'register' %}" class="btn btn-accent-custom">
+                            <i class="fas fa-user-plus"></i> Join UFA Today
+                        </a>
+                        <a href="{% url 'about' %}" class="btn btn-outline-light-custom">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <span class="stat-number">500+</span>
+                    <div class="stat-label">Active Members</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <span class="stat-number">12</span>
+                    <div class="stat-label">Counties Reached</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="fas fa-project-diagram"></i></div>
+                    <span class="stat-number">25+</span>
+                    <div class="stat-label">Programs Run</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="fas fa-heart"></i></div>
+                    <span class="stat-number">1000+</span>
+                    <div class="stat-label">Youth Impacted</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Programs Section -->
+<section class="py-5" style="background: var(--light-gray);">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Our <span>Programs</span></h2>
+            <p class="text-muted" style="font-size: 1.1rem;">Empowering youth through transformative programs</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-custom">
+                    <div class="card-body text-center">
+                        <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h5 class="card-title">Civic Education</h5>
+                        <p class="card-text">Empowering youth with knowledge about their rights, responsibilities, and the democratic process in Kenya.</p>
+                        <a href="{% url 'programs' %}" class="btn btn-primary-custom btn-sm">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-custom">
+                    <div class="card-body text-center">
+                        <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                        <h5 class="card-title">Youth Leadership</h5>
+                        <p class="card-text">Developing the next generation of leaders through mentorship, training, and practical experience.</p>
+                        <a href="{% url 'programs' %}" class="btn btn-primary-custom btn-sm">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-custom">
+                    <div class="card-body text-center">
+                        <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
+                        <h5 class="card-title">Advocacy</h5>
+                        <p class="card-text">Amplifying youth voices on critical issues affecting communities across all 47 counties.</p>
+                        <a href="{% url 'programs' %}" class="btn btn-primary-custom btn-sm">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'programs' %}" class="btn btn-primary-custom">
+                <i class="fas fa-arrow-right"></i> View All Programs
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content text-center">
+            <h2 class="animate-fade-in-up">Ready to Make a <span>Difference</span>?</h2>
+            <p class="lead mb-4 animate-fade-in-up delay-1" style="opacity: 0.9;">
+                Join UFA Kenya today and be part of a movement that's shaping the future of our nation.
+            </p>
+            <a href="{% url 'register' %}" class="btn btn-accent-custom animate-fade-in-up delay-2">
+                <i class="fas fa-user-plus"></i> Join Now
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

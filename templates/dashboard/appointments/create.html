@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Appointment - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-0">Create Appointment</h1>
+            <p class="text-muted">Appoint a member to a leadership position</p>
+        </div>
+        <a href="{% url 'appointments:list' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i> Please correct the errors below.
+                </div>
+                {% endif %}
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="id_member" class="form-label fw-bold">Member <span class="text-danger">*</span></label>
+                        {{ form.member }}
+                        {% if form.member.errors %}
+                        <div class="text-danger small">{{ form.member.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_position" class="form-label fw-bold">Position <span class="text-danger">*</span></label>
+                        {{ form.position }}
+                        {% if form.position.errors %}
+                        <div class="text-danger small">{{ form.position.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_county" class="form-label fw-bold">County</label>
+                        {{ form.county }}
+                        <small class="text-muted">For county positions only</small>
+                        {% if form.county.errors %}
+                        <div class="text-danger small">{{ form.county.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_ward" class="form-label fw-bold">Ward</label>
+                        {{ form.ward }}
+                        <small class="text-muted">For ward positions only</small>
+                        {% if form.ward.errors %}
+                        <div class="text-danger small">{{ form.ward.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_effective_date" class="form-label fw-bold">Effective Date <span class="text-danger">*</span></label>
+                        {{ form.effective_date }}
+                        {% if form.effective_date.errors %}
+                        <div class="text-danger small">{{ form.effective_date.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_expiry_date" class="form-label fw-bold">Expiry Date</label>
+                        {{ form.expiry_date }}
+                        <small class="text-muted">Optional</small>
+                        {% if form.expiry_date.errors %}
+                        <div class="text-danger small">{{ form.expiry_date.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_issuer" class="form-label fw-bold">Issuer</label>
+                        {{ form.issuer }}
+                        <small class="text-muted">Who is issuing this appointment</small>
+                        {% if form.issuer.errors %}
+                        <div class="text-danger small">{{ form.issuer.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_issuer_name" class="form-label fw-bold">Issuer Name</label>
+                        {{ form.issuer_name }}
+                        <small class="text-muted">Full name of the issuer</small>
+                        {% if form.issuer_name.errors %}
+                        <div class="text-danger small">{{ form.issuer_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_issuer_title" class="form-label fw-bold">Issuer Title</label>
+                        {{ form.issuer_title }}
+                        <small class="text-muted">Title of the issuer</small>
+                        {% if form.issuer_title.errors %}
+                        <div class="text-danger small">{{ form.issuer_title.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="id_notes" class="form-label fw-bold">Notes</label>
+                        {{ form.notes }}
+                        {% if form.notes.errors %}
+                        <div class="text-danger small">{{ form.notes.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-end gap-2 mt-3">
+                    <a href="{% url 'appointments:list' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary-custom">
+                        <i class="fas fa-save"></i> Create Appointment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

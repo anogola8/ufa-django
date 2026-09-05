@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Leadership - UFA Kenya{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Our <span>Leadership</span></h2>
+            <p class="text-muted">Meet the team driving change across Kenya</p>
+        </div>
+
+        <!-- Show database data -->
+        <div class="alert alert-success">
+            <strong>✅ Database Data:</strong> 
+            Total NEC Members: {{ nec_members|length }}
+        </div>
+
+        <!-- National Executive Council (NEC) -->
+        <h4 class="mb-4">National Executive Council (NEC)</h4>
+        
+        <div class="row g-4 mb-5">
+            {% for leader in nec_members %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-custom text-center">
+                    <div class="card-body">
+                        <div style="width: 120px; height: 120px; margin: 0 auto; background: var(--medium-gray); border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--logo-blue);">
+                            {% if leader.photo %}
+                                <img src="{{ leader.photo.url }}" alt="{{ leader.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                            {% else %}
+                                <i class="fas fa-user"></i>
+                            {% endif %}
+                        </div>
+                        <h5 class="mt-3">{{ leader.name }}</h5>
+                        <p class="text-muted">{{ leader.get_position_display }}</p>
+                        <p class="text-muted small"><i class="fas fa-building"></i> {{ leader.get_office_display }}</p>
+                        <a href="{% url 'leadership:detail' leader.slug %}" class="btn btn-primary-custom btn-sm">View Profile</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No NEC members listed yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

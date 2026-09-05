@@ -1,0 +1,311 @@
+/* ============================================
+   UFA KENYA - DASHBOARD STYLES
+   All dashboard-specific styles
+   ============================================ */
+
+/* Dashboard Layout */
+.dashboard-container {
+    padding: 20px 0;
+}
+
+/* Stat Cards */
+.stat-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 25px 20px;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+    border-left: 4px solid var(--logo-blue);
+    height: 100%;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-card .stat-icon {
+    font-size: 2rem;
+    color: var(--logo-blue);
+    opacity: 0.3;
+}
+
+.stat-card .stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin: 10px 0 5px;
+}
+
+.stat-card .stat-label {
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.stat-card.green { border-left-color: var(--logo-green); }
+.stat-card.gold { border-left-color: var(--logo-gold); }
+.stat-card.red { border-left-color: var(--logo-red); }
+
+.stat-card.green .stat-icon { color: var(--logo-green); }
+.stat-card.gold .stat-icon { color: var(--logo-gold); }
+.stat-card.red .stat-icon { color: var(--logo-red); }
+
+/* Activity Items */
+.activity-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--medium-gray);
+    transition: all var(--transition-fast);
+}
+
+.activity-item:hover {
+    background: var(--light-gray);
+}
+
+.activity-item .activity-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light-gray);
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.activity-item .activity-icon.blue { background: rgba(21, 101, 192, 0.1); color: var(--logo-blue); }
+.activity-item .activity-icon.green { background: rgba(46, 125, 50, 0.1); color: var(--logo-green); }
+.activity-item .activity-icon.gold { background: rgba(249, 168, 37, 0.1); color: var(--logo-gold); }
+.activity-item .activity-icon.red { background: rgba(198, 40, 40, 0.1); color: var(--logo-red); }
+
+.activity-item .activity-text {
+    flex: 1;
+}
+
+.activity-item .activity-text .title {
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: 2px;
+}
+
+.activity-item .activity-text .meta {
+    font-size: 0.8rem;
+    color: var(--dark-gray);
+}
+
+.activity-item .activity-time {
+    font-size: 0.75rem;
+    color: var(--dark-gray);
+    white-space: nowrap;
+}
+
+/* Event Items */
+.event-item {
+    padding: 12px 15px;
+    border-left: 3px solid var(--logo-blue);
+    margin-bottom: 10px;
+    background: var(--light-gray);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.event-item:hover {
+    background: var(--medium-gray);
+}
+
+.event-item .event-title {
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.event-item .event-meta {
+    font-size: 0.85rem;
+    color: var(--dark-gray);
+}
+
+.event-item .event-status {
+    font-size: 0.75rem;
+    padding: 3px 12px;
+    border-radius: var(--radius-full);
+    display: inline-block;
+}
+
+.event-status.confirmed { background: rgba(46, 125, 50, 0.1); color: var(--logo-green); }
+.event-status.pending { background: rgba(249, 168, 37, 0.1); color: var(--logo-gold); }
+.event-status.cancelled { background: rgba(198, 40, 40, 0.1); color: var(--logo-red); }
+
+/* Notification Items */
+.notification-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--medium-gray);
+    transition: all var(--transition-fast);
+}
+
+.notification-item:hover {
+    background: var(--light-gray);
+}
+
+.notification-item .notification-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(249, 168, 37, 0.1);
+    color: var(--logo-gold);
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.notification-item .notification-text {
+    flex: 1;
+}
+
+.notification-item .notification-text .title {
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.notification-item .notification-text .meta {
+    font-size: 0.8rem;
+    color: var(--dark-gray);
+}
+
+.notification-item .notification-time {
+    font-size: 0.75rem;
+    color: var(--dark-gray);
+}
+
+/* Chart Containers */
+.chart-container {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 25px;
+    box-shadow: var(--shadow-sm);
+    height: 100%;
+}
+
+.chart-container .chart-title {
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--primary-dark);
+}
+
+.chart-container .chart-title i {
+    color: var(--logo-gold);
+    margin-right: 10px;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+    height: 100%;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.dashboard-card .card-icon {
+    font-size: 2rem;
+    color: var(--logo-blue);
+    margin-bottom: 15px;
+}
+
+.dashboard-card .card-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+.dashboard-card .card-label {
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+}
+
+/* Stat Box for Analytics */
+.stat-box {
+    text-align: center;
+    padding: 20px;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+}
+
+.stat-box:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-box .stat-number {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--logo-blue);
+}
+
+.stat-box .stat-label {
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.stat-box .stat-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--logo-gold);
+}
+
+/* Member Welcome */
+.member-welcome {
+    background: linear-gradient(135deg, var(--logo-blue), var(--logo-green));
+    color: var(--white);
+    padding: 30px;
+    border-radius: var(--radius-md);
+    margin-bottom: 30px;
+}
+
+.member-welcome h1 {
+    color: var(--white);
+    margin-bottom: 5px;
+}
+
+.member-welcome p {
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+.member-welcome .badge {
+    background: var(--logo-gold);
+    color: var(--primary-dark);
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: var(--radius-full);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stat-card .stat-number {
+        font-size: 1.8rem;
+    }
+    .member-welcome {
+        padding: 20px;
+    }
+    .member-welcome h1 {
+        font-size: 1.5rem;
+    }
+    .activity-item {
+        flex-wrap: wrap;
+    }
+    .activity-item .activity-time {
+        margin-top: 5px;
+        margin-left: 47px;
+    }
+}

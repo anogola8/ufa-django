@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}News - UFA Kenya{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Latest <span>News</span></h2>
+            <p class="text-muted">Stay updated with UFA Kenya's activities and impact</p>
+        </div>
+
+        <!-- Featured News -->
+        {% if featured_news %}
+        <div class="row g-4 mb-5">
+            {% for news in featured_news %}
+            <div class="col-lg-4">
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-2">{{ news.category.name|default:"General" }}</span>
+                        {% if news.is_featured %}
+                        <span class="badge bg-danger mb-2 ms-1">Featured</span>
+                        {% endif %}
+                        {% if news.is_breaking %}
+                        <span class="badge bg-warning mb-2 ms-1">Breaking</span>
+                        {% endif %}
+                        {% if news.featured_image %}
+                        <img src="{{ news.featured_image.url }}" alt="{{ news.title }}" class="img-fluid rounded-3 mb-3" style="height: 150px; width: 100%; object-fit: cover;">
+                        {% endif %}
+                        <h5 class="card-title">{{ news.title }}</h5>
+                        <p class="card-text">{{ news.excerpt|truncatechars:100 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i class="fas fa-calendar"></i> {{ news.publish_date|date:"M d, Y" }}
+                                <i class="fas fa-eye ms-2"></i> {{ news.views }}
+                            </small>
+                            <a href="{% url 'news:detail' news.slug %}" class="btn btn-primary-custom btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- All News -->
+        <h4 class="mb-4">All News</h4>
+        <div class="row g-4">
+            {% for article in all_news %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <span class="badge bg-secondary mb-2">{{ article.category.name|default:"General" }}</span>
+                        {% if article.featured_image %}
+                        <img src="{{ article.featured_image.url }}" alt="{{ article.title }}" class="img-fluid rounded-3 mb-3" style="height: 100px; width: 100%; object-fit: cover;">
+                        {% endif %}
+                        <h6>{{ article.title }}</h6>
+                        <p class="text-muted small">{{ article.excerpt|truncatechars:80 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">{{ article.publish_date|date:"M d, Y" }}</small>
+                            <a href="{% url 'news:detail' article.slug %}" class="btn btn-outline-primary btn-sm">Read</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <div style="font-size: 4rem; color: var(--logo-blue); opacity: 0.3;">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <h4 class="mt-3">No News Articles</h4>
+                <p class="text-muted">Check back soon for updates.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

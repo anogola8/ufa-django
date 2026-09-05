@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - UFA Kenya{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="section-title">About <span>UFA Kenya</span></h2>
+                <p class="lead text-muted">Unique Focus Association - Empowering Youth for a Better Kenya</p>
+            </div>
+        </div>
+        
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <h3>Our Mission</h3>
+                <p>To empower Kenyan youth through civic education, leadership development, and advocacy, creating a generation of informed, engaged, and responsible citizens.</p>
+                
+                <h3 class="mt-4">Our Vision</h3>
+                <p>A Kenya where every young person is empowered to lead, participate, and contribute to national development.</p>
+                
+                <h3 class="mt-4">Our Values</h3>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check-circle text-accent me-2"></i> Integrity & Transparency</li>
+                    <li><i class="fas fa-check-circle text-accent me-2"></i> Youth Empowerment</li>
+                    <li><i class="fas fa-check-circle text-accent me-2"></i> Civic Engagement</li>
+                    <li><i class="fas fa-check-circle text-accent me-2"></i> Inclusivity & Diversity</li>
+                    <li><i class="fas fa-check-circle text-accent me-2"></i> Innovation & Excellence</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h4><i class="fas fa-flag text-accent"></i> Who We Are</h4>
+                        <p>Unique Focus Association (UFA) is a youth-led organization dedicated to transforming Kenya's youth landscape through education, leadership, and advocacy.</p>
+                        <hr>
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <h2 class="text-accent">500+</h2>
+                                <small class="text-muted">Active Members</small>
+                            </div>
+                            <div class="col-4">
+                                <h2 class="text-accent">12</h2>
+                                <small class="text-muted">Counties Reached</small>
+                            </div>
+                            <div class="col-4">
+                                <h2 class="text-accent">25+</h2>
+                                <small class="text-muted">Programs Run</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="py-5" style="background: var(--light-gray);">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Our <span>Leadership</span></h2>
+            <p class="text-muted">Meet the team driving change across Kenya</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card card-custom text-center">
+                    <div class="card-body">
+                        <div style="width: 120px; height: 120px; margin: 0 auto; background: var(--medium-gray); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--logo-blue);">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h5 class="mt-3">John Doe</h5>
+                        <p class="text-muted">Executive Director</p>
+                        <p class="small">Passionate about youth empowerment and civic engagement.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-custom text-center">
+                    <div class="card-body">
+                        <div style="width: 120px; height: 120px; margin: 0 auto; background: var(--medium-gray); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--logo-blue);">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h5 class="mt-3">Jane Smith</h5>
+                        <p class="text-muted">Programs Director</p>
+                        <p class="small">Leading program development and youth initiatives.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-custom text-center">
+                    <div class="card-body">
+                        <div style="width: 120px; height: 120px; margin: 0 auto; background: var(--medium-gray); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--logo-blue);">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h5 class="mt-3">David Ochieng</h5>
+                        <p class="text-muted">Advocacy Lead</p>
+                        <p class="small">Championing youth voices in policy and governance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
