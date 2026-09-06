@@ -6,8 +6,8 @@
 {% block content %}
 <div class="container py-5">
     <div class="row">
-        <!-- Sidebar -->
         <div class="col-lg-3">
+            <!-- Sidebar -->
             <div class="card shadow-sm border-0">
                 <div class="card-body text-center">
                     <!-- Profile Picture -->
@@ -39,7 +39,10 @@
                         <p><i class="fas fa-envelope text-accent me-2"></i> {{ user.email }}</p>
                         {% if member %}
                         <p><i class="fas fa-phone text-accent me-2"></i> {{ member.phone_number|default:"Not set" }}</p>
-                        <p><i class="fas fa-map-marker-alt text-accent me-2"></i> {{ member.county|default:"Not set" }}</p>
+                        <p><i class="fas fa-map-marker-alt text-accent me-2"></i> {{ member.county.name|default:"Not set" }}</p>
+                        {% if member.ward %}
+                        <p><i class="fas fa-map-pin text-accent me-2"></i> {{ member.ward.name }}</p>
+                        {% endif %}
                         <p><i class="fas fa-calendar text-accent me-2"></i> Joined: {{ member.joined_date|date:"M d, Y" }}</p>
                         {% endif %}
                     </div>
@@ -47,23 +50,13 @@
             </div>
         </div>
         
-        <!-- Profile Edit Form -->
         <div class="col-lg-9">
             <div class="card shadow-sm border-0">
                 <div class="card-header-custom" style="background: linear-gradient(135deg, var(--logo-blue), var(--logo-green));">
                     <h4 class="mb-0 text-white"><i class="fas fa-edit me-2"></i>Edit Profile</h4>
                 </div>
                 <div class="card-body">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
-                                {{ message }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                    
-                    <form method="post" enctype="multipart/form-data">
+                    <form method="post" enctype="multipart/form-data" id="profileForm">
                         {% csrf_token %}
                         
                         <h5 class="mb-3">Personal Information</h5>
@@ -104,6 +97,10 @@
                             <div class="col-md-6 mb-3">
                                 <label for="id_county" class="form-label fw-bold">County</label>
                                 {{ profile_form.county }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_ward" class="form-label fw-bold">Ward</label>
+                                {{ profile_form.ward }}
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="id_address" class="form-label fw-bold">Address</label>
@@ -154,12 +151,16 @@
                             </span></p>
                         </div>
                         <div class="col-md-4">
-                            <p><strong>Joined:</strong><br>
-                            {{ member.joined_date|date:"F d, Y" }}</p>
+                            <p><strong>County:</strong><br>
+                            {{ member.county.name|default:"Not set" }}</p>
                         </div>
                         <div class="col-md-4">
-                            <p><strong>Last Updated:</strong><br>
-                            {{ member.updated_date|date:"F d, Y" }}</p>
+                            <p><strong>Ward:</strong><br>
+                            {{ member.ward.name|default:"Not set" }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>Joined:</strong><br>
+                            {{ member.joined_date|date:"F d, Y" }}</p>
                         </div>
                     </div>
                 </div>
@@ -168,4 +169,32 @@
         </div>
     </div>
 </div>
+
+<!-- AJAX for dynamic ward loading -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const countySelect = document.getElementById('id_county');
+    const wardSelect = document.getElementById('id_ward');
+    
+    if (countySelect && wardSelect) {
+        countySelect.addEventListener('change', function() {
+            const countyId = this.value;
+            wardSelect.innerHTML = '<option value="">Loading wards...</option>';
+            
+            fetch(/api/wards/?county_id=)
+                .then(response => response.json())
+                .then(data => {
+                    wardSelect.innerHTML = '<option value="">Select Ward</option>';
+                    data.forEach(ward => {
+                        wardSelect.innerHTML += <option value=""></option>;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading wards:', error);
+                    wardSelect.innerHTML = '<option value="">Error loading wards</option>';
+                });
+        });
+    }
+});
+</script>
 {% endblock %}

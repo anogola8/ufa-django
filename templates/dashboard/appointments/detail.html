@@ -32,7 +32,8 @@
                     <p><strong>Reference:</strong> {{ appointment.letter_reference }}</p>
                     <p><strong>Member:</strong> {{ appointment.member.full_name }}</p>
                     <p><strong>Position:</strong> {{ appointment.get_position_display }}</p>
-                    <p><strong>County:</strong> {{ appointment.county|default:"National" }}</p>
+                    <p><strong>County:</strong> {{ appointment.county.name|default:"National" }}</p>
+                    <p><strong>Ward:</strong> {{ appointment.ward.name|default:"-" }}</p>
                     <p><strong>Status:</strong> 
                         <span class="badge {% if appointment.status == 'approved' %}bg-success{% else %}bg-warning{% endif %}">
                             {{ appointment.get_status_display }}
@@ -47,8 +48,8 @@
         <div class="col-md-8">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <div class="border p-4" style="background: #fafafa; max-height: 600px; overflow-y: auto;">
-                        {{ appointment.letter_content|linebreaks }}
+                    <div class="border p-4" style="background: #fafafa; max-height: 600px; overflow-y: auto; white-space: pre-wrap;">
+                        {{ appointment.letter_content }}
                     </div>
                 </div>
             </div>

@@ -17,7 +17,7 @@
 
     <div class="card shadow-sm">
         <div class="card-body">
-            <form method="post">
+            <form method="post" id="appointmentForm">
                 {% csrf_token %}
                 
                 {% if form.errors %}
@@ -41,22 +41,31 @@
                         <div class="text-danger small">{{ form.position.errors }}</div>
                         {% endif %}
                     </div>
+                    
+                    <!-- County Dropdown -->
                     <div class="col-md-6 mb-3">
-                        <label for="id_county" class="form-label fw-bold">County</label>
+                        <label for="id_county" class="form-label fw-bold">
+                            <i class="fas fa-map-marker-alt"></i> County
+                        </label>
                         {{ form.county }}
-                        <small class="text-muted">For county positions only</small>
+                        <small class="text-muted">Select the county for this position</small>
                         {% if form.county.errors %}
                         <div class="text-danger small">{{ form.county.errors }}</div>
                         {% endif %}
                     </div>
+                    
+                    <!-- Ward Dropdown (dynamic) -->
                     <div class="col-md-6 mb-3">
-                        <label for="id_ward" class="form-label fw-bold">Ward</label>
+                        <label for="id_ward" class="form-label fw-bold">
+                            <i class="fas fa-map-pin"></i> Ward
+                        </label>
                         {{ form.ward }}
-                        <small class="text-muted">For ward positions only</small>
+                        <small class="text-muted">Select the ward (optional)</small>
                         {% if form.ward.errors %}
                         <div class="text-danger small">{{ form.ward.errors }}</div>
                         {% endif %}
                     </div>
+                    
                     <div class="col-md-6 mb-3">
                         <label for="id_effective_date" class="form-label fw-bold">Effective Date <span class="text-danger">*</span></label>
                         {{ form.effective_date }}
@@ -70,30 +79,6 @@
                         <small class="text-muted">Optional</small>
                         {% if form.expiry_date.errors %}
                         <div class="text-danger small">{{ form.expiry_date.errors }}</div>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="id_issuer" class="form-label fw-bold">Issuer</label>
-                        {{ form.issuer }}
-                        <small class="text-muted">Who is issuing this appointment</small>
-                        {% if form.issuer.errors %}
-                        <div class="text-danger small">{{ form.issuer.errors }}</div>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="id_issuer_name" class="form-label fw-bold">Issuer Name</label>
-                        {{ form.issuer_name }}
-                        <small class="text-muted">Full name of the issuer</small>
-                        {% if form.issuer_name.errors %}
-                        <div class="text-danger small">{{ form.issuer_name.errors }}</div>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="id_issuer_title" class="form-label fw-bold">Issuer Title</label>
-                        {{ form.issuer_title }}
-                        <small class="text-muted">Title of the issuer</small>
-                        {% if form.issuer_title.errors %}
-                        <div class="text-danger small">{{ form.issuer_title.errors }}</div>
                         {% endif %}
                     </div>
                     <div class="col-12 mb-3">
@@ -117,4 +102,32 @@
         </div>
     </div>
 </div>
+
+<!-- AJAX for dynamic ward loading -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const countySelect = document.getElementById('id_county');
+    const wardSelect = document.getElementById('id_ward');
+    
+    if (countySelect && wardSelect) {
+        countySelect.addEventListener('change', function() {
+            const countyId = this.value;
+            wardSelect.innerHTML = '<option value="">Loading wards...</option>';
+            
+            fetch(/api/wards/?county_id=)
+                .then(response => response.json())
+                .then(data => {
+                    wardSelect.innerHTML = '<option value="">Select Ward</option>';
+                    data.forEach(ward => {
+                        wardSelect.innerHTML += <option value=""></option>;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading wards:', error);
+                    wardSelect.innerHTML = '<option value="">Error loading wards</option>';
+                });
+        });
+    }
+});
+</script>
 {% endblock %}

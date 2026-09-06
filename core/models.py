@@ -3,28 +3,28 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 class County(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     code = models.CharField(max_length=10, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        verbose_name_plural = 'Counties'
         ordering = ['name']
-        
+        verbose_name_plural = 'Counties'
+    
     def __str__(self):
         return self.name
 
 class Ward(models.Model):
     county = models.ForeignKey(County, on_delete=models.CASCADE, related_name='wards')
     name = models.CharField(max_length=100)
-    code = models.CharField(max_length=10, unique=True)
+    code = models.CharField(max_length=10, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         ordering = ['county', 'name']
-        
+    
     def __str__(self):
         return f"{self.name} - {self.county.name}"
 
@@ -50,6 +50,6 @@ class AuditLog(models.Model):
     
     class Meta:
         ordering = ['-timestamp']
-        
+    
     def __str__(self):
         return f"{self.actor} - {self.action} at {self.timestamp}"

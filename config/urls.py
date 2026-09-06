@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from accounts import views as accounts_views
+from core import views as core_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -18,6 +19,9 @@ urlpatterns = [
     path('programs/', include('programs.urls')),
     path('appointments/', include('appointments.urls')),
     path('accounts/', include('accounts.urls')),
+    
+    # API endpoints
+    path('api/wards/', core_views.get_wards, name='api_wards'),
     
     # Authentication
     path('login/', accounts_views.CustomLoginView.as_view(), name='login'),
